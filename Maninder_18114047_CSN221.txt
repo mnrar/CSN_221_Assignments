@@ -1,0 +1,44 @@
+mov r1,0  /*int i*/
+mov r2,0  /*int j*/
+mov r3,0  /*int k*/
+mov r4,0  /*int counter*/
+.loopi:
+  add r1,r1,1
+  mov r4,0
+  mov r2,0
+  .loopj:
+    mov r3,0
+    add r2,r2,1
+     .loopk:
+        add r3,r3,1
+        cmp r4,2
+        beq .exiter
+        mov r5,0
+        mul r5,r2,r2
+        mul r5,r5,r2    /*  j*j*j   */
+        mov r6,0
+        mul r6,r3,r3
+        mul r6,r6,r3    /*  k*k*k  */
+        add r5,r6,r5
+        cmp r5,r1      /*if j*j*j+k*k*k==i  */
+        beq .found
+        cmp r3,r1
+        beq .nextj
+        cmp r2,r1
+        beq.nexti
+        b.loopk
+
+.nexti
+  b.loop
+
+.nextj
+  b.loopj
+
+.found
+   add r4,r4,1
+   b.loopk
+
+.exiter:
+   exit
+
+
